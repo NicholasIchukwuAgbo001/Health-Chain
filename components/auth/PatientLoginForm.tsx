@@ -1,14 +1,24 @@
+"use client";
 import { Smartphone } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function PatientLoginForm() {
   const [id, setId] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Patient ID:", id);
-    console.log("Phone Number:", phone);
+
+    if (!id || !phone) {
+      toast.error("Please enter both Patient ID and Phone Number");
+      return;
+    }
+
+    toast.success("Login successful!");
+    router.push("/patients/dashboard");
   };
 
   return (
