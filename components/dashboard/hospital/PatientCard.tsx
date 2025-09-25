@@ -1,58 +1,36 @@
-
-import React from 'react'
-import {Phone, Mail, MapPin, Calendar, Heart, AlertTriangle, Pill, Edit, Trash2, Eye} from 'lucide-react'
-
-interface Address {
-  street: string;
-  city: string;
-  state: string;
-  country: string;
-}
-
-interface Patient {
-  _id: string
-  patientId: string
-  firstName: string
-  lastName: string
-  middleName?: string
-  dateOfBirth: string
-  gender: string
-  phoneNumber: string
-  email?: string
-  address?: Address       
-  bloodType?: string
-  allergies?: string[]
-  medicalHistory?: string[]
-  currentMedications?: string[]
-  isActive: boolean
-}
+import React from 'react';
+import { Phone, Mail, MapPin, Calendar, Heart, AlertTriangle, Pill, Edit, Trash2, Eye } from 'lucide-react';
+import { Patient } from '@/types/patient';
 
 interface PatientCardProps {
-  patient: Patient
-  onEdit: (patient: Patient) => void
-  onDelete: (patientId: string) => void
-  onView: (patient: Patient) => void
+  patient: Patient;
+  onEdit: (patient: Patient) => void;
+  onDelete: (patientId: string) => void;
+  onView: (patient: Patient) => void;
 }
 
-const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onDelete, onView }) => {
+const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onView }) => {
   const getAge = (dateOfBirth: string) => {
-    const today = new Date()
-    const birthDate = new Date(dateOfBirth)
-    let age = today.getFullYear() - birthDate.getFullYear()
-    const monthDiff = today.getMonth() - birthDate.getMonth()
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--
+      age--;
     }
-    return age
-  }
+    return age;
+  };
 
   const getGenderColor = (gender: string) => {
     switch (gender.toLowerCase()) {
-      case 'male': return 'bg-blue-100 text-blue-800'
-      case 'female': return 'bg-pink-100 text-pink-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'male':
+        return 'bg-blue-100 text-blue-800';
+      case 'female':
+        return 'bg-pink-100 text-pink-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const getBloodTypeColor = (bloodType: string) => {
     const colors = {
@@ -63,17 +41,17 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onDelete, on
       'B+': 'bg-blue-100 text-blue-800',
       'B-': 'bg-blue-200 text-blue-900',
       'AB+': 'bg-purple-100 text-purple-800',
-      'AB-': 'bg-purple-200 text-purple-900'
-    }
-    return colors[bloodType as keyof typeof colors] || 'bg-gray-100 text-gray-800'
-  }
+      'AB-': 'bg-purple-200 text-purple-900',
+    };
+    return colors[bloodType as keyof typeof colors] || 'bg-gray-100 text-gray-800';
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">
-            {patient.firstName} {patient.middleName} {patient.lastName}
+            {patient.firstName} {patient.middleName ? `${patient.middleName} ` : ''}{patient.lastName}
           </h3>
           <p className="text-sm text-gray-500">ID: {patient.patientId}</p>
         </div>
@@ -86,9 +64,11 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onDelete, on
               {patient.bloodType}
             </span>
           )}
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-            patient.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-          }`}>
+          <span
+            className={`px-2 py-1 rounded-full text-xs font-medium ${
+              patient.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+            }`}
+          >
             {patient.isActive ? 'Active' : 'Inactive'}
           </span>
         </div>
@@ -112,7 +92,9 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onDelete, on
         {patient.address && (
           <div className="flex items-center space-x-2 text-sm text-gray-600">
             <MapPin className="h-4 w-4" />
-            <span>{patient.address.city}, {patient.address.state}</span>
+            <span>
+              {patient.address.city || 'N/A'}, {patient.address.state || 'N/A'}
+            </span>
           </div>
         )}
       </div>
@@ -127,7 +109,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onDelete, on
             </div>
           </div>
         )}
-        
+
         {patient.medicalHistory && patient.medicalHistory.length > 0 && (
           <div className="flex items-start space-x-2">
             <Heart className="h-4 w-4 text-blue-500 mt-0.5" />
@@ -137,7 +119,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onDelete, on
             </div>
           </div>
         )}
-        
+
         {patient.currentMedications && patient.currentMedications.length > 0 && (
           <div className="flex items-start space-x-2">
             <Pill className="h-4 w-4 text-green-500 mt-0.5" />
@@ -165,7 +147,6 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onDelete, on
           <span>Edit</span>
         </button>
         <button
-          onClick={() => onDelete(patient._id)}
           className="flex items-center space-x-1 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors"
         >
           <Trash2 className="h-4 w-4" />
@@ -173,7 +154,7 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onDelete, on
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PatientCard
+export default PatientCard;

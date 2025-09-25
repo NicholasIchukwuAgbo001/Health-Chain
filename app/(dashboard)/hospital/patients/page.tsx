@@ -13,34 +13,10 @@ import {
   Upload,
 } from "lucide-react";
 import toast from "react-hot-toast";
-
-interface Patient {
-  _id: string;
-  patientId: string;
-  firstName: string;
-  lastName: string;
-  middleName?: string;
-  dateOfBirth: string;
-  gender: string;
-  phoneNumber: string;
-  email?: string;
-  address?: {
-    street: string;
-    city: string;
-    state: string;
-    country: string;
-  };
-  bloodType?: string;
-  allergies?: string[];
-  medicalHistory?: string[];
-  currentMedications?: string[];
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Patient } from "@/types/patient";
 
 const Patients: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // Simulated auth
+  const [isAuthenticated, setIsAuthenticated] = useState(true); 
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -61,7 +37,7 @@ const Patients: React.FC = () => {
           firstName: "Adaora",
           middleName: "Chinwe",
           lastName: "Okafor",
-          dateOfBirth: "1985-03-15",
+          dateOfBirth: "1985-03-15T00:00:00.000Z",
           gender: "Female",
           phoneNumber: "+2348012345678",
           email: "adaora.okafor@email.com",
@@ -70,11 +46,22 @@ const Patients: React.FC = () => {
             city: "Lagos",
             state: "Lagos",
             country: "Nigeria",
+            postalCode: "101241",
+          },
+          emergencyContact: {
+            name: "John Okafor",
+            relationship: "Husband",
+            phoneNumber: "+2348098765432",
           },
           bloodType: "O+",
           allergies: ["Penicillin", "Shellfish"],
           medicalHistory: ["Hypertension"],
           currentMedications: ["Lisinopril 10mg", "Hydrochlorothiazide 25mg"],
+          insuranceInfo: {
+            provider: "NHIS",
+            policyNumber: "NHIS/2023/001",
+            groupNumber: "GRP001",
+          },
           isActive: true,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
@@ -85,7 +72,7 @@ const Patients: React.FC = () => {
           firstName: "Chinedu",
           middleName: "Ifeanyi",
           lastName: "Nwosu",
-          dateOfBirth: "1990-07-22",
+          dateOfBirth: "1990-07-22T00:00:00.000Z",
           gender: "Male",
           phoneNumber: "+2348023456789",
           email: "chinedu.nwosu@email.com",
@@ -94,11 +81,22 @@ const Patients: React.FC = () => {
             city: "Lagos",
             state: "Lagos",
             country: "Nigeria",
+            postalCode: "100213",
+          },
+          emergencyContact: {
+            name: "Grace Nwosu",
+            relationship: "Wife",
+            phoneNumber: "+2348076543210",
           },
           bloodType: "A+",
           allergies: ["None"],
           medicalHistory: ["Asthma"],
           currentMedications: ["Salbutamol Inhaler"],
+          insuranceInfo: {
+            provider: "Private Health Insurance",
+            policyNumber: "PHI/2023/002",
+            groupNumber: "GRP002",
+          },
           isActive: true,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
@@ -109,7 +107,7 @@ const Patients: React.FC = () => {
           firstName: "Mary",
           middleName: "Ngozi",
           lastName: "Williams",
-          dateOfBirth: "1978-11-08",
+          dateOfBirth: "1978-11-08T00:00:00.000Z",
           gender: "Female",
           phoneNumber: "+2348034567890",
           email: "mary.williams@email.com",
@@ -118,11 +116,22 @@ const Patients: React.FC = () => {
             city: "Lagos",
             state: "Lagos",
             country: "Nigeria",
+            postalCode: "105102",
+          },
+          emergencyContact: {
+            name: "Peter Williams",
+            relationship: "Son",
+            phoneNumber: "+2348065432109",
           },
           bloodType: "B+",
           allergies: ["Latex"],
           medicalHistory: ["Diabetes Type 2"],
           currentMedications: ["Metformin 500mg"],
+          insuranceInfo: {
+            provider: "HMO Nigeria",
+            policyNumber: "HMO/2023/003",
+            groupNumber: "GRP003",
+          },
           isActive: true,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
@@ -133,7 +142,7 @@ const Patients: React.FC = () => {
           firstName: "David",
           middleName: "Emeka",
           lastName: "Brown",
-          dateOfBirth: "1995-01-30",
+          dateOfBirth: "1995-01-30T00:00:00.000Z",
           gender: "Male",
           phoneNumber: "+2348045678901",
           email: "david.brown@email.com",
@@ -142,11 +151,22 @@ const Patients: React.FC = () => {
             city: "Lagos",
             state: "Lagos",
             country: "Nigeria",
+            postalCode: "101231",
+          },
+          emergencyContact: {
+            name: "Sarah Brown",
+            relationship: "Mother",
+            phoneNumber: "+2348054321098",
           },
           bloodType: "AB+",
           allergies: ["None"],
           medicalHistory: ["None"],
           currentMedications: [],
+          insuranceInfo: {
+            provider: "NHIS",
+            policyNumber: "NHIS/2023/004",
+            groupNumber: "GRP004",
+          },
           isActive: true,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
@@ -157,7 +177,7 @@ const Patients: React.FC = () => {
           firstName: "Grace",
           middleName: "Amaka",
           lastName: "Okafor",
-          dateOfBirth: "1982-09-12",
+          dateOfBirth: "1982-09-12T00:00:00.000Z",
           gender: "Female",
           phoneNumber: "+2348056789012",
           email: "grace.okafor@email.com",
@@ -166,11 +186,22 @@ const Patients: React.FC = () => {
             city: "Lagos",
             state: "Lagos",
             country: "Nigeria",
+            postalCode: "101301",
+          },
+          emergencyContact: {
+            name: "Samuel Okafor",
+            relationship: "Brother",
+            phoneNumber: "+2348043210987",
           },
           bloodType: "O-",
           allergies: ["Penicillin"],
           medicalHistory: ["Hypertension", "Thyroid issues"],
           currentMedications: ["Amlodipine 5mg", "Levothyroxine 50mcg"],
+          insuranceInfo: {
+            provider: "Private Health Insurance",
+            policyNumber: "PHI/2023/005",
+            groupNumber: "GRP005",
+          },
           isActive: true,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
@@ -194,7 +225,7 @@ const Patients: React.FC = () => {
     toast.success("Patient created successfully");
   };
 
-  const updatePatient = (patientId: string, updates: Partial<Patient>) => {
+  const updatePatient = (patientId: string, updates: Partial<Omit<Patient, "_id" | "createdAt" | "updatedAt">>) => {
     setPatients((prev) =>
       prev.map((p) =>
         p._id === patientId
@@ -227,7 +258,9 @@ const Patients: React.FC = () => {
     return genderMatch && bloodTypeMatch && searchMatch;
   });
 
-  const handleSubmitPatient = (patientData: Omit<Patient, "_id">) => {
+  const handleSubmitPatient = async (
+    patientData: Omit<Patient, "_id" | "createdAt" | "updatedAt">
+  ): Promise<void> => {
     if (editingPatient && editingPatient._id) {
       updatePatient(editingPatient._id, patientData);
     } else {
@@ -434,6 +467,10 @@ const Patients: React.FC = () => {
                 </p>
                 {!searchTerm && !filterGender && !filterBloodType && (
                   <button
+                    onClick={() => {
+                      setEditingPatient(null);
+                      setShowForm(true);
+                    }}
                     aria-label="Add First Patient"
                     className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
                   >
@@ -453,11 +490,12 @@ const Patients: React.FC = () => {
               setShowForm(false);
               setEditingPatient(null);
             }}
+            isLoading={loading}
           />
         )}
 
         {selectedPatient && (
-          <div className="fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-9999999 p-4">
+          <div className="fixed inset-0 bg-black/20 bg-opacity-50 flex items-center justify-center z-[9999999] p-4">
             <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
@@ -467,7 +505,7 @@ const Patients: React.FC = () => {
                   <button
                     aria-label="Close details"
                     onClick={() => setSelectedPatient(null)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
                   >
                     ×
                   </button>
@@ -476,11 +514,13 @@ const Patients: React.FC = () => {
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-medium text-gray-900 mb-2">
-                      {selectedPatient.firstName} {selectedPatient.middleName}{" "}
-                      {selectedPatient.lastName}
+                      {selectedPatient.firstName} {selectedPatient.middleName && `${selectedPatient.middleName} `}{selectedPatient.lastName}
                     </h3>
                     <p className="text-gray-600">
                       ID: {selectedPatient.patientId}
+                    </p>
+                    <p className="text-gray-600">
+                      DOB: {new Date(selectedPatient.dateOfBirth).toLocaleDateString()}
                     </p>
                   </div>
 
@@ -503,17 +543,58 @@ const Patients: React.FC = () => {
                     {selectedPatient.address && (
                       <div>
                         <h4 className="font-medium text-gray-900">Address</h4>
-                        <div className="mt-2 text-sm text-gray-600">
-                          <p>{selectedPatient.address.street}</p>
-                          <p>
-                            {selectedPatient.address.city},{" "}
-                            {selectedPatient.address.state}
-                          </p>
+                        <div className="mt-2 space-y-1 text-sm text-gray-600">
+                          {selectedPatient.address.street && (
+                            <p>{selectedPatient.address.street}</p>
+                          )}
+                          {selectedPatient.address.city && (
+                            <p>
+                              {selectedPatient.address.city},{" "}
+                              {selectedPatient.address.state}
+                            </p>
+                          )}
                           <p>{selectedPatient.address.country}</p>
+                          {selectedPatient.address.postalCode && (
+                            <p>Postal: {selectedPatient.address.postalCode}</p>
+                          )}
                         </div>
                       </div>
                     )}
                   </div>
+
+                  {selectedPatient.emergencyContact && (
+                    <div>
+                      <h4 className="font-medium text-gray-900">Emergency Contact</h4>
+                      <div className="mt-2 space-y-1 text-sm text-gray-600">
+                        {selectedPatient.emergencyContact.name && (
+                          <p>Name: {selectedPatient.emergencyContact.name}</p>
+                        )}
+                        {selectedPatient.emergencyContact.relationship && (
+                          <p>Relationship: {selectedPatient.emergencyContact.relationship}</p>
+                        )}
+                        {selectedPatient.emergencyContact.phoneNumber && (
+                          <p>Phone: {selectedPatient.emergencyContact.phoneNumber}</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedPatient.insuranceInfo && (
+                    <div>
+                      <h4 className="font-medium text-gray-900">Insurance Information</h4>
+                      <div className="mt-2 space-y-1 text-sm text-gray-600">
+                        {selectedPatient.insuranceInfo.provider && (
+                          <p>Provider: {selectedPatient.insuranceInfo.provider}</p>
+                        )}
+                        {selectedPatient.insuranceInfo.policyNumber && (
+                          <p>Policy #: {selectedPatient.insuranceInfo.policyNumber}</p>
+                        )}
+                        {selectedPatient.insuranceInfo.groupNumber && (
+                          <p>Group #: {selectedPatient.insuranceInfo.groupNumber}</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
                   {selectedPatient.allergies &&
                     selectedPatient.allergies.length > 0 && (
@@ -548,6 +629,13 @@ const Patients: React.FC = () => {
                         </p>
                       </div>
                     )}
+
+                  <div className="pt-4 border-t border-gray-200">
+                    <p className="text-xs text-gray-500">
+                      Status: {selectedPatient.isActive ? "Active" : "Inactive"} | 
+                      Last Updated: {new Date(selectedPatient.updatedAt).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="mt-6 flex justify-end space-x-3">
