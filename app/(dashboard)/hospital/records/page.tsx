@@ -4,7 +4,7 @@ import { Search, Plus, Shield, Calendar, User, FileText, Eye, AlertTriangle } fr
 import MedicalRecordForm from '@/components/dashboard/hospital/MedicalRecordForm';
 import { Patient } from '@/types/patient';
 
-
+// Interfaces
 interface VitalSigns {
   bloodPressure?: string;
   temperature?: string;
@@ -114,6 +114,23 @@ const initialRecords: MedicalRecord[] = [
     isVerified: true,
     createdAt: new Date('2025-09-22T14:30:00.000+01:00').toISOString(),
   },
+  {
+    _id: '3',
+    recordId: 'REC003',
+    patientId: 'PAT001',
+    doctorName: 'Ngozi Adebayo',
+    recordType: 'lab_result',
+    recordDate: '2025-09-25T12:00:00.000+01:00',
+    diagnosis: 'Normal blood work',
+    symptoms: [],
+    treatment: 'No treatment needed',
+    prescription: [],
+    vitalSigns: { bloodPressure: '120/80 mmHg', temperature: '36.5°C', heartRate: '72 bpm', weight: '68 kg' },
+    notes: 'Routine check-up results.',
+    blockchainHash: '0x789ghi...',
+    isVerified: false,
+    createdAt: new Date('2025-09-25T12:00:00.000+01:00').toISOString(),
+  },
 ];
 
 const RecordItem: React.FC<{
@@ -194,9 +211,9 @@ const RecordDetailsModal: React.FC<{
   formatRecordType: (type: string) => string;
   onClose: () => void;
 }> = ({ record, getPatientName, formatRecordType, onClose }) => (
-  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-99999999 p-4">
-    <div className="bg-white rounded-xl max-w-3xl w-full max-h-[80vh] overflow-y-auto">
-      <div className="sticky top-0 bg-white border-b border-lightgrey/30 px-6 py-4 flex justify-between items-center">
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">Medical Record Details</h2>
         <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
           ×
@@ -205,7 +222,7 @@ const RecordDetailsModal: React.FC<{
       <div className="p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey/30 pb-2">Record Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Record Information</h3>
             <div className="space-y-3">
               <div>
                 <label className="text-sm font-medium text-gray-500">Record ID</label>
@@ -231,9 +248,9 @@ const RecordDetailsModal: React.FC<{
           </div>
           {record.vitalSigns && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey/30 pb-2">Vital Signs</h3>
+              <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Vital Signs</h3>
               <div className="space-y-3">
-                {Object.entries(record.vitalSigns).map(([key, value]) => (
+                {Object.entries(record.vitalSigns).filter(([_, value]) => value).map(([key, value]) => (
                   <div key={key}>
                     <label className="text-sm font-medium text-gray-500">
                       {key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}
@@ -247,19 +264,19 @@ const RecordDetailsModal: React.FC<{
         </div>
         {record.diagnosis && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey/30 pb-2 mb-4">Diagnosis</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Diagnosis</h3>
             <p className="text-gray-900 bg-blue-50 p-4 rounded-lg">{record.diagnosis}</p>
           </div>
         )}
         {record.treatment && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b  border-lightgrey/30 pb-2 mb-4">Treatment</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Treatment</h3>
             <p className="text-gray-900 bg-green-50 p-4 rounded-lg">{record.treatment}</p>
           </div>
         )}
         {record.symptoms && record.symptoms.length > 0 && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey/30 pb-2 mb-4">Symptoms</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Symptoms</h3>
             <div className="flex flex-wrap gap-2">
               {record.symptoms.map((symptom, index) => (
                 <span key={index} className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">
@@ -271,7 +288,7 @@ const RecordDetailsModal: React.FC<{
         )}
         {record.prescription && record.prescription.length > 0 && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey/30 pb-2 mb-4">Prescriptions</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Prescriptions</h3>
             <div className="space-y-3">
               {record.prescription.map((med, index) => (
                 <div key={index} className="bg-green-50 border border-green-200 p-4 rounded-lg">
@@ -296,7 +313,7 @@ const RecordDetailsModal: React.FC<{
         )}
         {record.notes && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey/30 pb-2 mb-4">Additional Notes</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Additional Notes</h3>
             <p className="text-gray-900 bg-gray-50 p-4 rounded-lg">{record.notes}</p>
           </div>
         )}
@@ -392,7 +409,7 @@ const MedicalRecords: React.FC = () => {
           </div>
           <button
             onClick={() => setShowRecordForm(true)}
-            className="mt-4 sm bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
+            className="mt-4 sm:mt-0 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
           >
             <Plus className="h-5 w-5" />
             <span>Add Medical Record</span>
@@ -408,14 +425,14 @@ const MedicalRecords: React.FC = () => {
                 placeholder="Search by patient ID, doctor, or diagnosis..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
             <select
-             title='button'
+             title='btn'
               value={selectedRecordType}
               onChange={(e) => setSelectedRecordType(e.target.value)}
-              className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">All Record Types</option>
               {['diagnosis', 'prescription', 'lab_result', 'treatment', 'immunization', 'visit_note'].map((type) => (
