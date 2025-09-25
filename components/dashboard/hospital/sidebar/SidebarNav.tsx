@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Gauge, User, FileText, Settings, BarChart3 } from "lucide-react";
+import { Gauge, User, FileText, BarChart3 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import SidebarItem from "./SidebarItemProps";
 
@@ -14,8 +14,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { href: "/hospital/dashboard", icon: Gauge, label: "Dashboard" },
   { href: "/hospital/patients", icon: User, label: "Patients" },
-  { href: "/hospital/records", icon: FileText, label: "Medical Records" },
-  { href: "/hospital/settings", icon: Settings, label: "Settings" },
+  { href: "/hospital/records", icon: FileText, label: "Med-Records" },
   { href: "/hospital/analytics", icon: BarChart3, label: "Analytics" },
 ];
 type SidebarNavProps = {
