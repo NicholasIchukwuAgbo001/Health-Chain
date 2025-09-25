@@ -16,7 +16,6 @@ import toast from "react-hot-toast";
 import { Patient } from "@/types/patient";
 
 const Patients: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); 
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -270,32 +269,9 @@ const Patients: React.FC = () => {
     setEditingPatient(null);
   };
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
-          <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Access Required
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Please sign in to view and manage patient records.
-          </p>
-          <button
-            aria-label="Sign In"
-            onClick={() => setIsAuthenticated(true)}
-            className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 transition-colors"
-          >
-            Sign In
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Patients</h1>
