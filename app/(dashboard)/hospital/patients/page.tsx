@@ -9,8 +9,6 @@ import {
   Users,
   Grid,
   List,
-  Download,
-  Upload,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Patient } from "@/types/patient";
@@ -271,7 +269,7 @@ const Patients: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Patients</h1>
@@ -290,20 +288,6 @@ const Patients: React.FC = () => {
             >
               <Plus className="h-4 w-4" />
               <span>Add Patient</span>
-            </button>
-            <button
-              aria-label="Import Patients"
-              className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              <Upload className="h-4 w-4" />
-              <span>Import</span>
-            </button>
-            <button
-              aria-label="Export Patients"
-              className="flex items-center space-x-2 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
-            >
-              <Download className="h-4 w-4" />
-              <span>Export</span>
             </button>
           </div>
         </div>

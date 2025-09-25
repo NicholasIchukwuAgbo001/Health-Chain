@@ -4,7 +4,6 @@ import { Search, Plus, Shield, Calendar, User, FileText, Eye, AlertTriangle } fr
 import MedicalRecordForm from '@/components/dashboard/hospital/MedicalRecordForm';
 import { Patient } from '@/types/patient';
 
-// Interfaces
 interface VitalSigns {
   bloodPressure?: string;
   temperature?: string;
@@ -36,7 +35,6 @@ interface MedicalRecord {
   createdAt: string;
 }
 
-// Dummy Data
 const patients: Patient[] = [
   {
     _id: '1',
@@ -211,9 +209,9 @@ const RecordDetailsModal: React.FC<{
   formatRecordType: (type: string) => string;
   onClose: () => void;
 }> = ({ record, getPatientName, formatRecordType, onClose }) => (
-  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-    <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-      <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-9999999 p-4">
+    <div className="bg-white rounded-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+      <div className="sticky top-0 bg-white border-b border-lightgrey px-6 py-4 flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">Medical Record Details</h2>
         <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
           ×
@@ -222,7 +220,7 @@ const RecordDetailsModal: React.FC<{
       <div className="p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Record Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey pb-2">Record Information</h3>
             <div className="space-y-3">
               <div>
                 <label className="text-sm font-medium text-gray-500">Record ID</label>
@@ -248,7 +246,7 @@ const RecordDetailsModal: React.FC<{
           </div>
           {record.vitalSigns && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Vital Signs</h3>
+              <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey pb-2">Vital Signs</h3>
               <div className="space-y-3">
                 {Object.entries(record.vitalSigns).filter(([_, value]) => value).map(([key, value]) => (
                   <div key={key}>
@@ -264,19 +262,19 @@ const RecordDetailsModal: React.FC<{
         </div>
         {record.diagnosis && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Diagnosis</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey pb-2 mb-4">Diagnosis</h3>
             <p className="text-gray-900 bg-blue-50 p-4 rounded-lg">{record.diagnosis}</p>
           </div>
         )}
         {record.treatment && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Treatment</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey pb-2 mb-4">Treatment</h3>
             <p className="text-gray-900 bg-green-50 p-4 rounded-lg">{record.treatment}</p>
           </div>
         )}
         {record.symptoms && record.symptoms.length > 0 && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Symptoms</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey pb-2 mb-4">Symptoms</h3>
             <div className="flex flex-wrap gap-2">
               {record.symptoms.map((symptom, index) => (
                 <span key={index} className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">
@@ -288,7 +286,7 @@ const RecordDetailsModal: React.FC<{
         )}
         {record.prescription && record.prescription.length > 0 && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Prescriptions</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey pb-2 mb-4">Prescriptions</h3>
             <div className="space-y-3">
               {record.prescription.map((med, index) => (
                 <div key={index} className="bg-green-50 border border-green-200 p-4 rounded-lg">
@@ -313,7 +311,7 @@ const RecordDetailsModal: React.FC<{
         )}
         {record.notes && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 mb-4">Additional Notes</h3>
+            <h3 className="text-lg font-semibold text-gray-900 border-b border-lightgrey pb-2 mb-4">Additional Notes</h3>
             <p className="text-gray-900 bg-gray-50 p-4 rounded-lg">{record.notes}</p>
           </div>
         )}
@@ -401,7 +399,7 @@ const MedicalRecords: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Medical Records</h1>

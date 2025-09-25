@@ -225,7 +225,7 @@ const MedicalRecordForm: React.FC<MedicalRecordFormProps> = ({ isOpen, onClose, 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-9999999 p-4">
       <div className="bg-white rounded-xl max-w-3xl w-full max-h-[80vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
+        <div className="sticky top-0 bg-white border-b border-lightgrey px-6 py-4 flex justify-between items-center">
           <h2 className="text-2xl font-bold text-gray-800">Add Medical Record</h2>
           <button
            title="button" 

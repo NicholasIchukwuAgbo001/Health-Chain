@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Calendar, Heart, AlertTriangle, Pill, Edit, Trash2, Eye } from 'lucide-react';
+import { Phone, Mail, MapPin, Calendar, Heart, AlertTriangle, Pill, Edit, Eye } from 'lucide-react';
 import { Patient } from '@/types/patient';
 
 interface PatientCardProps {
@@ -145,12 +145,6 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient, onEdit, onView }) =>
         >
           <Edit className="h-4 w-4" />
           <span>Edit</span>
-        </button>
-        <button
-          className="flex items-center space-x-1 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors"
-        >
-          <Trash2 className="h-4 w-4" />
-          <span>Delete</span>
         </button>
       </div>
     </div>
